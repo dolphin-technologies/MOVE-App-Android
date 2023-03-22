@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+  <entry>
+    <key>url_termsofuse</key>
+    <value>https://www.dolph.in/c/movedemo/apppages-tou.php</value>
+  </entry>
+  <entry>
+    <key>url_privacy</key>
+    <value>https://www.dolph.in/c/movedemo/apppages-privacy.php</value>
+  </entry>
+  <entry>
+    <key>url_privacyanalytics</key>
+    <value>https://www.dolph.in/c/movedemo/apppages-privacyanalytics.php</value>
+  </entry>
+  <entry>
+    <key>url_help</key>
+    <value>https://www.dolph.in/c/movedemo/apppages-infohelp.php</value>
+  </entry>
+  <entry>
+    <key>url_imprint</key>
+    <value>https://www.dolph.in/c/movedemo/apppages-imprint.php</value>
+  </entry>
+</defaults>
