@@ -77,12 +77,12 @@ interface MoveSdkManager {
 
     /**
      *
-     * Flow to receive [AssistanceCallState] changes.
+     * Flow to receive [MoveAssistanceCallStatus] changes.
      *
-     * @return [StateFlow] of [AssistanceCallState] if there is a value or null
+     * @return [StateFlow] of [MoveAssistanceCallStatus] if there is a value or null
      * @see <a href="https://docs.movesdk.com/move-platform/sdk/api-interface/android-1/android#initiate-assistance-call">MOVE SDK Wiki Assistance Call</a>
      */
-    fun fetchAssistanceStateFlow(): StateFlow<AssistanceCallState?>
+    fun fetchAssistanceStateFlow(): StateFlow<MoveAssistanceCallStatus?>
 
     /**
      *
@@ -145,7 +145,7 @@ class MoveSdkManagerImpl @Inject constructor(
     private val moveConfigErrorFlow = MutableStateFlow<MoveConfigurationError?>(null)
     private val moveErrorsFlow = MutableStateFlow<List<MoveServiceFailure>>(emptyList())
     private val moveWarningsFlow = MutableStateFlow<List<MoveServiceWarning>>(emptyList())
-    private val assistanceStateFlow = MutableStateFlow<AssistanceCallState?>(null)
+    private val assistanceStateFlow = MutableStateFlow<MoveAssistanceCallStatus?>(null)
 
     init {
         Timber.i("Running MOVE SDK version ${MoveSdk.version}")
@@ -242,7 +242,7 @@ class MoveSdkManagerImpl @Inject constructor(
         return moveWarningsFlow
     }
 
-    override fun fetchAssistanceStateFlow(): StateFlow<AssistanceCallState?> {
+    override fun fetchAssistanceStateFlow(): StateFlow<MoveAssistanceCallStatus?> {
         return assistanceStateFlow
     }
 
@@ -255,14 +255,6 @@ class MoveSdkManagerImpl @Inject constructor(
                 moveConfigErrorFlow.emit(error)
             }
             when (error) {
-                is MoveConfigurationError.AuthInvalid -> {
-                    // It might happen that the retrieved token is already outdated, so we need to get a new one
-                    updateAuth()
-                }
-                is MoveConfigurationError.ConfigMismatch -> {
-                    Timber.tag("MoveConfigurationError")
-                        .e("It seems that you are trying to use a service which you are not allowed. Please contact customer support")
-                }
                 is MoveConfigurationError.ServiceUnreachable -> {
                     Timber.tag("MoveConfigurationError")
                         .e("The connection to our servers failed. Please ensure that you have a valid internet connection. If the problem still remains, please contact customer support")
@@ -308,6 +300,10 @@ class MoveSdkManagerImpl @Inject constructor(
                 is MoveAuthState.UNKNOWN -> {
                     // The SDK authorization state when SDK is uninitialized.
                 }
+
+                is MoveAuthState.INVALID -> {
+                    // Latest MoveAuth is invalid.
+                }
             }
         }
     }
@@ -339,9 +335,9 @@ class MoveSdkManagerImpl @Inject constructor(
     }
 
     private val assistanceListener = object : MoveSdk.AssistanceStateListener {
-        override fun onAssistanceStateChanged(assistanceState: AssistanceCallState) {
+        override fun onAssistanceStateChanged(assistanceState: MoveAssistanceCallStatus) {
             assistanceStateFlow.value = assistanceState
-            Timber.tag("AssistanceCallState").d(assistanceState.name)
+            Timber.tag("MoveAssistanceCallStatus").d(assistanceState.name)
         }
     }
 

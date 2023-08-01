@@ -1,6 +1,6 @@
 package io.dolphin.move.android.sdk.domain
 
-import io.dolphin.move.AssistanceCallState
+import io.dolphin.move.MoveAssistanceCallStatus
 import io.dolphin.move.MoveConfigurationError
 import io.dolphin.move.MoveSdk
 import io.dolphin.move.MoveSdkState
@@ -39,7 +39,7 @@ class MoveSdkManagerInteractor @Inject constructor(
         return moveSdkManager.fetchWarningsFlow()
     }
 
-    fun fetchAssistanceStateFlow(): StateFlow<AssistanceCallState?> {
+    fun fetchAssistanceStateFlow(): StateFlow<MoveAssistanceCallStatus?> {
         return moveSdkManager.fetchAssistanceStateFlow()
     }
 

@@ -65,8 +65,12 @@ fun ApiMoveTimelineItemDetail.mapToSelectedTeb(tabSelected: TripDetailsTabItem):
 
 fun ApiMoveTimelineItemDetail.mapToMapState(): MapViewState {
     val latLngList =
-        tripPoints?.map { LatLng(it.roadLat?.toDouble() ?: 0.0, it.roadLon?.toDouble() ?: 0.0) }
-            .orEmpty()
+        tripPoints?.map {
+            LatLng(
+                it.roadLat?.toDouble() ?: it.lat?.toDouble() ?: 0.0,
+                it.roadLon?.toDouble() ?: it.lon?.toDouble() ?: 0.0,
+            )
+        }.orEmpty()
     val yellowItemsList = mutableListOf<SpeedViewState>()
     val yellowList = mutableListOf<LatLng>()
     val redItemsList = mutableListOf<SpeedViewState>()
@@ -192,9 +196,10 @@ fun TripDetailsTabState.Distraction.mapToDistractionMapStateList(tripDetails: Ap
     val distractionMapStateList = mutableListOf<DistractionMapViewState>()
     val pointsListSize = pointList.size - 1
     this.distractionItems.forEach { tabItemState ->
+        val toIndex = minOf((tabItemState.end * pointsListSize).toInt(), pointsListSize)
         val pointsSubList = pointList.subList(
             fromIndex = (tabItemState.start * pointsListSize).toInt(),
-            toIndex = (tabItemState.end * pointsListSize).toInt(),
+            toIndex = toIndex,
         ).map {
             LatLng(
                 it.lat?.toDouble() ?: 0.0,
