@@ -20,6 +20,6 @@ fun <T> MutableLiveData<T>.onNext(next: T) {
 
 fun <T : Any> LiveData<T>.requireValue(): T = checkNotNull(value)
 
-inline fun <X, Y> LiveData<X>.mapDistinct(crossinline transform: (X) -> Y): LiveData<Y> {
+fun <X, Y> LiveData<X>.mapDistinct(transform: (X) -> Y): LiveData<Y> {
     return map(transform).distinctUntilChanged()
 }

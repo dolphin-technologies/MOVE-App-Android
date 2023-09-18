@@ -7,6 +7,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -40,8 +41,9 @@ fun MoveTextField(
         onValueChange = onValueChange,
         textStyle = styleNormal(fontSize = 16.sp),
         singleLine = true,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = dark_indigo,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedTextColor = dark_indigo,
+            unfocusedTextColor = dark_indigo,
             focusedLabelColor = battleship_grey,
             unfocusedLabelColor = battleship_grey,
             focusedBorderColor = light_blue_grey,

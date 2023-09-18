@@ -23,6 +23,7 @@ import io.dolphin.move.android.basedata.network.client.infrastructure.ApiClient
 import io.dolphin.move.android.basedata.network.client.interceptors.Authorization
 import io.dolphin.move.android.basedata.network.client.interceptors.AuthorizationInterceptor
 import io.dolphin.move.android.basedata.network.client.interceptors.CustomHeadersInterceptor
+import io.dolphin.move.android.basedata.network.client.interceptors.ProductAuthorizationInterceptor
 import io.dolphin.move.android.basedata.storage.AppMemory
 import io.dolphin.move.android.basedata.storage.SessionMemory
 import io.dolphin.move.android.basedata.storage.common.WebAgreementInMemoryStorage
@@ -107,8 +108,8 @@ interface DataModule {
         @Provides
         fun provideMoveUserRestApi(
             requestHelper: RequestHelper,
-            userStorage: UserStorage,
         ): MoveUserRestApi {
+            val productAuthorization = ProductAuthorizationInterceptor()
             return ApiClient(
                 baseUrl = BASE_URL,
                 okHttpClientBuilder = OkHttpClient()
@@ -117,7 +118,7 @@ interface DataModule {
                         HttpLoggingInterceptor()
                             .apply { level = HttpLoggingInterceptor.Level.BODY }
                     )
-                    .addInterceptor(AuthorizationInterceptor(userStorage))
+                    .addInterceptor(productAuthorization)
                     .addInterceptor(CustomHeadersInterceptor(requestHelper))
             )
                 .createService(MoveUserRestApi::class.java)

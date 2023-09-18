@@ -19,6 +19,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -268,7 +269,7 @@ class MoveSdkManagerImpl @Inject constructor(
         private var lastState: MoveSdkState = MoveSdkState.Uninitialised
 
         override fun onStateChanged(sdk: MoveSdk, state: MoveSdkState) {
-            moveStateFlow.value = state
+            moveStateFlow.update { state }
             if (BuildConfig.DEBUG && state == MoveSdkState.Running) {
                 sdk.forceTripRecognition()
             }

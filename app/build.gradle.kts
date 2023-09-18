@@ -2,7 +2,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.android.extensions)
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.hilt.gradle)
     alias(libs.plugins.ksp)
@@ -14,12 +13,12 @@ plugins {
 
 android {
     namespace = "io.dolphin.move.android"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "io.dolphin.move.android"
         minSdk = 26
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0.3.$versionCode"
 
@@ -58,6 +57,7 @@ android {
         aidl = false
         renderScript = false
         shaders = false
+        buildConfig = true
     }
 
     composeOptions {

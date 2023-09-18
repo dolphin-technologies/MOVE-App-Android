@@ -122,7 +122,7 @@ class MainRouterImpl(
     }
 
     override fun showMessagesScreen() {
-        if (navController.backQueue.any { it.destination.route == Routes.MessagesRoot.Messages.route }) {
+        if (navController.currentBackStack.value.any { it.destination.route == Routes.MessagesRoot.Messages.route }) {
             navController.popBackStack(Routes.MessagesRoot.Messages.route, false)
         } else {
             navController.navigate(Routes.MessagesRoot.Messages.route)
