@@ -292,8 +292,6 @@ class MoveSdkManagerImpl @Inject constructor(
             when (state) {
                 is MoveAuthState.EXPIRED -> {
                     // Latest MoveAuth expired and the SDK can't refresh it.
-                    // Requesting new Auth using the project's API Key and then passing it to the SDK.
-                    updateAuth()
                 }
                 is MoveAuthState.VALID -> {
                     // Authentication is valid. Latest MoveAuth provided.
@@ -428,11 +426,13 @@ class MoveSdkManagerImpl @Inject constructor(
 
     /**
      *
+     * DEPRECATED
      * If MoveAuthState is EXPIRED the authentication token must be refreshed.
      *
      * @see <a href="https://docs.movesdk.com/move-platform/sdk/models/moveauth">MOVE SDK Wiki MoveAuth</a>
      * @see <a href="https://docs.movesdk.com/move-platform/sdk/models/moveauthstate">MOVE SDK Wiki MoveAuthState</a>
      */
+    @Deprecated("Do not use manual token update, this will be handled internally by the Move SDK")
     private fun updateAuth() {
         launch(coroutineContext) {
             when (val result = updateTokenRepository.requestUpdateToken()) {

@@ -1,9 +1,10 @@
-## Move sample app and Move SDK
+## MOVE App and MOVE SDK
 
 The MOVE SDK enables you to collect location data, motion information and other sensor data from
 your users smartphones. This data is then transmitted to our backend, where it is evaluated,
 enriched with industry leading machine learning algorithms and applied to a comprehensive 24/7
 timeline.
+
 This timeline gives you insights on where your users move and how they get there, be it in the past,
 the present or even the future (via our prediction algorithms). With our MOVE SDK, you will gain a
 deep understanding of your users personas and service them in a whole new way, completely
@@ -11,7 +12,7 @@ transforming the way you interact with them.
 
 The MOVE App shows you how to integrate our SDK very easily into your existing or future app.
 
-For more information: [MOVE Android SDK documentation](https://docs.movesdk.com/move-platform/).
+For more information: [MOVE SDK Android Documentation](https://docs.movesdk.com/move-platform/).
 
 ### Requirements
 
@@ -26,6 +27,19 @@ To use Google Maps you need to add api key in `local.properties` file:
 ```kotlin
 MAPS_API_KEY = YOUR_API_KEY
 ```
+
+### Starting Point:
+A good entry point is the application class `Move.kt`.
+On the first line of the function `onCreate()` the MOVE SDK will be initialized with `MoveSdk.init(..)`
+
+You should also have a look into `MoveSdkManager.kt`. MOVE SDK features and some listeners will be defined with `registerMoveSdkFeatures(..)`.
+The configuration of the MOVE SDK will be done within `createMoveConfig(..)`. After registering an new user or login an existing user the
+MOVE SDK must be setup. In this example this will be done with `setupMoveSdk(..)`.
+
+The permissions will be handled within the permission feature (see `PermissionsScreen.kt`, `PermissionsViewModel.kt`).
+Turning on/off the MOVE SDK will be done within `turnMoveSdkOn()` / `turnMoveSdkOff()`.
+
+For more information: [MOVE SDK Android Getting Started](https://docs.movesdk.com/move-platform/sdk/getting-started/android).
 
 ### Configuration
 
@@ -154,15 +168,6 @@ private fun createMoveConfig(): MoveConfig {
         moveDetectionServices = moveServices.toList(),
     )
 }
-```
-
-### Handle expired token
-
-In case of an expired token and if the SDK is unable to update it you need to update directly using
-the new `MoveAuth` object.
-
-```kotlin
-fun updateAuth(auth: MoveAuth, onError: ((MoveConfigurationError) -> Unit)?)
 ```
 
 ## Support
