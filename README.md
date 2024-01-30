@@ -17,7 +17,7 @@ For more information: [MOVE SDK Android Documentation](https://docs.movesdk.com/
 ### Requirements
 
 You need to provide a `google-services.json` file in the `/app` folder. For more information
-check [The Google Services Gradle Plugin](https://developers.google.com/android/guides/google-services-plugin)
+please check [The Google Services Gradle Plugin](https://developers.google.com/android/guides/google-services-plugin)
 page.
 Also make sure you have the correct `namespace` for `google-services.json` file. You can find it
 in `build.gradle.kts` file in `/app` folder.
@@ -27,6 +27,12 @@ To use Google Maps you need to add api key in `local.properties` file:
 ```kotlin
 MAPS_API_KEY = YOUR_API_KEY
 ```
+
+Also you have to exchange BASE_URL (see Urls.kt) with your own backend url.
+```kotlin
+const val BASE_URL = "URL_TO_BACKEND_IMPLEMENTATION"
+```
+For more information please check this page [MOVE Backend](https://docs.movesdk.com/move-platform/backend/move-backend). 
 
 ### Starting Point:
 A good entry point is the application class `Move.kt`.
