@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -54,16 +55,18 @@ fun Overview(overviewList: List<OverviewScore>) {
                     contentAlignment = Alignment.Center,
                 ) {
                     CircularProgressIndicator(
+                        progress = { scoreItem.score / 100f },
                         modifier = Modifier
                             .width(36.dp)
                             .height(36.dp),
-                        progress = scoreItem.score / 100f,
                         color = score_green,
-                        strokeWidth = 2.dp
+                        strokeWidth = 2.dp,
+                        trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
                     )
                     TextNormal(
                         text = "${scoreItem.score}",
                         fontSize = 16.sp,
+                        modifier = Modifier.padding(top = 4.dp, end = 1.dp)
                     )
                 }
                 VerticalSpacer12()

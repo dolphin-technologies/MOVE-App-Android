@@ -27,7 +27,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.ImeAction
@@ -95,6 +94,7 @@ fun ProfileScreen(
                     loginRouter.showLoginScreenAtStart()
                 }
             }
+
             else -> {
                 SimpleOkDialog(
                     title = title,
@@ -106,7 +106,7 @@ fun ProfileScreen(
         }
     }
 
-    val lifecycleOwner = LocalLifecycleOwner.current
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
     DisposableEffect(
         key1 = lifecycleOwner,
         effect = {

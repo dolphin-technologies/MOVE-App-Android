@@ -39,7 +39,7 @@ class ProfileRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val rawResponse = try {
                 val userId = userStorage.getUser()?.contractId ?: ""
-                profileRestApi.apiV1UsersGet(
+                profileRestApi.apiV2UsersGet(
                     xAppContractid = userId,
                 )
             } catch (e: Exception) {
@@ -74,7 +74,7 @@ class ProfileRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val rawResponse = try {
                 val userId = userStorage.getUser()?.contractId ?: ""
-                profileRestApi.apiV1UsersLogoutPost(
+                profileRestApi.apiV2UsersLogoutPost(
                     apiLogoutRequest = ApiLogoutRequest(userId),
                     xAppContractid = userId,
                 )
@@ -104,7 +104,7 @@ class ProfileRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val rawResponse = try {
                 val userId = userStorage.getUser()?.contractId ?: ""
-                profileRestApi.apiV1UsersPatch(
+                profileRestApi.apiV2UsersPatch(
                     apiChangeContractDataRequest = profileData.toChangeContractDataRequest(),
                     xAppContractid = userId,
                     acceptLanguage = requestHelper.getAcceptLanguage(),
@@ -141,7 +141,7 @@ class ProfileRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val rawResponse = try {
                 val userId = userStorage.getUser()?.contractId ?: ""
-                profileRestApi.apiV1UsersEmailPut(
+                profileRestApi.apiV2UsersEmailPut(
                     apiChangeContractDataRequest = profileData.toChangeContractDataRequest(),
                     xAppContractid = userId,
                 )

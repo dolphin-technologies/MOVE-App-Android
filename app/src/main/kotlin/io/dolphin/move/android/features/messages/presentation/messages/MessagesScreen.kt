@@ -101,7 +101,7 @@ fun MessagesScreenContent(
                     }
                 }
                 SwipeToDismiss(
-                    modifier = Modifier.animateItemPlacement(),
+                    modifier = Modifier.animateItem(fadeInSpec = null, fadeOutSpec = null),
                     state = dismissState,
                     directions = setOf(DismissDirection.EndToStart),
                     dismissThresholds = { FractionalThreshold(0.3f) },

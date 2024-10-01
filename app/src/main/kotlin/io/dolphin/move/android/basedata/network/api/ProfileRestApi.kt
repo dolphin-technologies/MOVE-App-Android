@@ -23,8 +23,8 @@ interface ProfileRestApi {
      * @param xAppContractid
      * @return [ApiBaseResponse]
      */
-    @POST("api/v1/users/delete")
-    suspend fun apiV1UsersDeletePost(
+    @POST("api/v2/users/delete")
+    suspend fun apiV2UsersDeletePost(
         @Body apiDeleteAccountRequest: ApiDeleteAccountRequest,
         @Header("x-app-contractid") xAppContractid: String? = null
     ): Response<ApiBaseResponse>
@@ -40,8 +40,8 @@ interface ProfileRestApi {
      * @param xAppContractid
      * @return [ApiBaseResponse]
      */
-    @PATCH("api/v1/users/email")
-    suspend fun apiV1UsersEmailPatch(
+    @PATCH("api/v2/users/email")
+    suspend fun apiV2UsersEmailPatch(
         @Body apiValidateEmailHashRequest: ApiValidateEmailHashRequest,
         @Header("x-app-contractid") xAppContractid: String? = null
     ): Response<ApiBaseResponse>
@@ -57,8 +57,8 @@ interface ProfileRestApi {
      * @param xAppContractid
      * @return [ApiBaseResponse]
      */
-    @PUT("api/v1/users/email")
-    suspend fun apiV1UsersEmailPut(
+    @PUT("api/v2/users/email")
+    suspend fun apiV2UsersEmailPut(
         @Body apiChangeContractDataRequest: ApiChangeContractDataRequest,
         @Header("x-app-contractid") xAppContractid: String? = null
     ): Response<ApiBaseResponse>
@@ -74,8 +74,8 @@ interface ProfileRestApi {
      * @param xAppContractid
      * @return [ApiBaseResponse]
      */
-    @PUT("api/v1/users/passwords")
-    suspend fun apiV1UsersPasswordsPut(
+    @PUT("api/v2/users/passwords")
+    suspend fun apiV2UsersPasswordsPut(
         @Body apiChangePasswordRequest: ApiChangePasswordRequest,
         @Header("x-app-contractid") xAppContractid: String? = null
     ): Response<ApiBaseResponse>
@@ -92,8 +92,8 @@ interface ProfileRestApi {
      * @param acceptLanguage
      * @return [ApiGetContractResponse]
      */
-    @PATCH("api/v1/users")
-    suspend fun apiV1UsersPatch(
+    @PATCH("api/v2/users")
+    suspend fun apiV2UsersPatch(
         @Body apiChangeContractDataRequest: ApiChangeContractDataRequest,
         @Header("x-app-contractid") xAppContractid: String? = null,
         @Header("Accept-Language") acceptLanguage: String? = null
@@ -109,8 +109,8 @@ interface ProfileRestApi {
      * @param xAppContractid
      * @return [ApiGetContractResponse]
      */
-    @GET("api/v1/users")
-    suspend fun apiV1UsersGet(
+    @GET("api/v2/users")
+    suspend fun apiV2UsersGet(
         @Header("x-app-contractid") xAppContractid: String? = null,
     ): Response<ApiGetContractResponse>
 
@@ -125,8 +125,8 @@ interface ProfileRestApi {
      * @param xAppContractid
      * @return [ApiBaseResponse]
      */
-    @POST("api/v1/users/logout")
-    suspend fun apiV1UsersLogoutPost(
+    @POST("api/v2/users/logout")
+    suspend fun apiV2UsersLogoutPost(
         @Body apiLogoutRequest: ApiLogoutRequest,
         @Header("x-app-contractid") xAppContractid: String? = null,
     ): Response<ApiBaseResponse>

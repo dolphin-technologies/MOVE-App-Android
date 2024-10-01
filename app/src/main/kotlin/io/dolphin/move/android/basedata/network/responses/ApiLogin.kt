@@ -35,6 +35,9 @@ data class ApiLogin (
     @SerializedName("sdkUserLoginInfo")
     val sdkUserLoginInfo: ApiSdkUserLoginInfo? = null,
 
+    @SerializedName("sdkUserAuthCode")
+    val sdkUserAuthCode: kotlin.String? = null,
+
     @SerializedName("productAuthInfo")
     val productAuthInfo: ApiProductAuthInfo? = null,
 

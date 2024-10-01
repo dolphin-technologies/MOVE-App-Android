@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -305,11 +306,13 @@ class PermissionsViewModel @Inject constructor(
      */
     override fun turnMoveSdkOn() {
         moveSdkManagerInteractor.getMoveSdk()?.let { sdk ->
-            when (sdk.getSdkState()) {
-                MoveSdkState.Ready -> sdk.startAutomaticDetection()
-                MoveSdkState.Running -> { /* ignore */
+            launch {
+                when (sdk.getSdkState()) {
+                    MoveSdkState.Ready -> sdk.startAutomaticDetection()
+                    MoveSdkState.Running -> { /* ignore */
+                    }
+                    MoveSdkState.Uninitialised -> moveSdkManagerInteractor.setupAndStart()
                 }
-                MoveSdkState.Uninitialised -> moveSdkManagerInteractor.setupAndStart()
             }
         }
     }

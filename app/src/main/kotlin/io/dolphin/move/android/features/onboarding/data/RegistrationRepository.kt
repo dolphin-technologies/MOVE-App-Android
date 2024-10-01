@@ -48,7 +48,7 @@ class RegistrationRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val userRequest = userDto.toUserRequest()
             val rawResponse = try {
-                userApi.apiV1UsersPost(
+                userApi.apiV2UsersPost(
                     apiRegisterUserRequest = userRequest,
                 )
             } catch (e: Exception) {
@@ -63,13 +63,10 @@ class RegistrationRepositoryImpl @Inject constructor(
                     if (response?.data != null) {
                         userStorage.setUser(response.data)
                         userStorage.setContract(userDto.toContractRequest())
-                        response.data.sdkUserLoginInfo?.let {
+                        response.data.sdkUserAuthCode?.let {
                             /** setup the MOVE SDK after receiving the MOVE SDK credentials */
                             moveSdkManager.setupMoveSdk(
-                                projectId = it.productId,
-                                userId = it.contractId,
-                                accessToken = it.accessToken,
-                                refreshToken = it.refreshToken
+                                authCode = it
                             )
                         }
                         messagesRepository.requestMessages()
