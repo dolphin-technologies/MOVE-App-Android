@@ -13,7 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -95,11 +96,11 @@ fun Speed(
                 }
             }
             HorizontalSpacer16()
-            Divider(
-                color = white,
+            HorizontalDivider(
                 modifier = Modifier
                     .fillMaxHeight()
                     .width(1.dp),
+                color = white
             )
             HorizontalSpacer12()
             Box(
@@ -107,16 +108,18 @@ fun Speed(
                 contentAlignment = Alignment.Center,
             ) {
                 CircularProgressIndicator(
+                    progress = { state.score / 100f },
                     modifier = Modifier
                         .width(48.dp)
                         .height(48.dp),
-                    progress = state.score / 100f,
                     color = score_green,
-                    strokeWidth = 2.dp
+                    strokeWidth = 2.dp,
+                    trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
                 )
                 TextNormal(
                     text = "${state.score}",
                     fontSize = 16.sp,
+                    modifier = Modifier.padding(top = 4.dp, end = 1.dp)
                 )
             }
         }

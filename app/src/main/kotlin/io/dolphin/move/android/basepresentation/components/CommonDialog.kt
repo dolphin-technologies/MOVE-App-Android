@@ -11,7 +11,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -77,7 +77,7 @@ fun SimpleOkDialog(
                         modifier = Modifier.padding(16.dp)
                     )
                 }
-                Divider(
+                HorizontalDivider(
                     Modifier
                         .fillMaxWidth()
                         .height(1.dp)
@@ -163,7 +163,7 @@ fun ConfirmDialog(
                         modifier = Modifier.padding(16.dp)
                     )
                 }
-                Divider(
+                HorizontalDivider(
                     Modifier
                         .fillMaxWidth()
                         .height(1.dp)

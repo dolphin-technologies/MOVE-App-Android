@@ -68,7 +68,7 @@ fun MoveTopBar(
         }
     },
     windowInsets = WindowInsets(0.dp, 24.dp, 0.dp, 0.dp),
-    colors = TopAppBarDefaults.smallTopAppBarColors(
+    colors = TopAppBarDefaults.topAppBarColors(
         containerColor = Color.Transparent,
     ),
     actions = {

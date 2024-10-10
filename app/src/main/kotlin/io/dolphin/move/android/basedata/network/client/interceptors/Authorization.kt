@@ -46,7 +46,7 @@ class Authorization @Inject constructor(
         )
 
         val result = runBlocking {
-            moveUserRestApi.apiV1UsersTokensProductsPost(
+            moveUserRestApi.apiV2UsersTokensProductsPost(
                 apiRefreshTokenRequest = apiRefreshTokenRequest,
                 xAppAppid = requestHelper.getAppId(),
                 xAppContractid = requestHelper.getContractId()

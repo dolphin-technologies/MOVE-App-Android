@@ -32,7 +32,7 @@ class ChangePasswordRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val rawResponse = try {
                 val userId = userStorage.getUser()?.contractId ?: ""
-                profileRestApi.apiV1UsersPasswordsPut(
+                profileRestApi.apiV2UsersPasswordsPut(
                     apiChangePasswordRequest = changePasswordData.toChangePasswordRequest(),
                     xAppContractid = userId,
                 )

@@ -54,7 +54,7 @@ class LoginRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val loginRequest = loginDto.toLoginRequest()
             val rawResponse = try {
-                userApi.apiV1UsersLoginPost(
+                userApi.apiV2UsersLoginPost(
                     apiLoginRequest = loginRequest,
                 )
             } catch (e: Exception) {
@@ -68,13 +68,10 @@ class LoginRepositoryImpl @Inject constructor(
                 state = if (response?.status.isSuccessfull) {
                     if (response?.data != null) {
                         userStorage.setUser(response.data)
-                        response.data.sdkUserLoginInfo?.let {
+                        response.data.sdkUserAuthCode?.let {
                             /** setup the MOVE SDK after receiving the MOVE SDK credentials */
                             moveSdkManager.setupMoveSdk(
-                                projectId = it.productId,
-                                userId = it.contractId,
-                                accessToken = it.accessToken,
-                                refreshToken = it.refreshToken
+                                authCode = it
                             )
                         }
                         messagesRepository.requestMessages()

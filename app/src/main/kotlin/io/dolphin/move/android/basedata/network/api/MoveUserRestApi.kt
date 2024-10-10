@@ -29,8 +29,8 @@ interface MoveUserRestApi {
      * @param xAppPlatform  (optional)
      * @return [ApiLoginResponse]
      */
-    @POST("api/v1/users/login")
-    suspend fun apiV1UsersLoginPost(
+    @POST("api/v2/users/login")
+    suspend fun apiV2UsersLoginPost(
         @Body apiLoginRequest: ApiLoginRequest,
         @Header("x-app-appid") xAppAppid: String? = null,
         @Header("Date") date: String? = null,
@@ -50,8 +50,8 @@ interface MoveUserRestApi {
      * @param acceptLanguage  (optional)
      * @return [ApiBaseResponse]
      */
-    @POST("api/v1/users/passwords/resets")
-    suspend fun apiV1UsersPasswordsResetsPost(
+    @POST("api/v2/users/passwords/resets")
+    suspend fun apiV2UsersPasswordsResetsPost(
         @Body apiRequestResetPasswordRequest: ApiRequestResetPasswordRequest,
         @Header("Accept-Language") acceptLanguage: String? = null
     ): Response<ApiBaseResponse>
@@ -73,8 +73,8 @@ interface MoveUserRestApi {
      * @param xAppPlatform  (optional)
      * @return [ApiRegisterUserResponse]
      */
-    @POST("api/v1/users")
-    suspend fun apiV1UsersPost(
+    @POST("api/v2/users")
+    suspend fun apiV2UsersPost(
         @Body apiRegisterUserRequest: ApiRegisterUserRequest,
         @Header("x-app-appversion") xAppAppversion: String? = null,
         @Header("x-app-appid") xAppAppid: String? = null,
@@ -95,8 +95,8 @@ interface MoveUserRestApi {
      * @param xAppContractid  (optional)
      * @return [ApiRefreshTokenResponse]
      */
-    @POST("api/v1/users/tokens/products")
-    suspend fun apiV1UsersTokensProductsPost(
+    @POST("api/v2/users/tokens/products")
+    suspend fun apiV2UsersTokensProductsPost(
         @Body apiRefreshTokenRequest: ApiRefreshTokenRequest,
         @Header("x-app-appid") xAppAppid: String? = null,
         @Header("x-app-contractid") xAppContractid: String? = null
@@ -113,8 +113,8 @@ interface MoveUserRestApi {
      * @param xAppContractid  (optional)
      * @return [ApiRefreshSdkTokenResponse]
      */
-    @GET("api/v1/users/tokens/sdks")
-    suspend fun apiV1UsersTokensSdksGet(
+    @GET("api/v2/users/tokens/sdks")
+    suspend fun apiV2UsersTokensSdksGet(
         @Header("x-app-appid") xAppAppid: String? = null,
         @Header("x-app-contractid") xAppContractid: String? = null,
     ): Response<ApiRefreshSdkTokenResponse>

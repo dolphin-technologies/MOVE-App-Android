@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FilledTonalButton
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -107,16 +108,18 @@ fun TripDetailsHeader(
                 contentAlignment = Alignment.Center,
             ) {
                 CircularProgressIndicator(
+                    progress = { score / 100f },
                     modifier = Modifier
                         .width(36.dp)
                         .height(36.dp),
-                    progress = score / 100f,
                     color = score_green,
-                    strokeWidth = 1.dp
+                    strokeWidth = 1.dp,
+                    trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
                 )
                 TextNormal(
                     text = "$score",
                     fontSize = 16.sp,
+                    modifier = Modifier.padding(top = 4.dp, end = 1.dp)
                 )
             }
         }
@@ -137,7 +140,7 @@ fun TripDetailsHeaderPreview() {
             ),
             from = "500 W 2nd St, Austin, TX 78701, USA",
             to = "2600 E 13th St, Austin, TX 78702, USA",
-            score = 45,
+            score = 66,
         ),
     )
 }

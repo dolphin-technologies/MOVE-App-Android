@@ -20,7 +20,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0.3.$versionCode"
+        versionName = "1.0.5.$versionCode"
 
         testInstrumentationRunner = "io.dolphin.move.android.HiltTestRunner"
         vectorDrawables {
@@ -64,7 +64,7 @@ android {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
     }
 
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }

@@ -39,7 +39,7 @@ class DeleteAccountRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val deleteAccountRequest = ApiDeleteAccountRequest(password = password)
             val rawResponse = try {
-                profileRestApi.apiV1UsersDeletePost(
+                profileRestApi.apiV2UsersDeletePost(
                     apiDeleteAccountRequest = deleteAccountRequest,
                     xAppContractid = userStorage.getUser()?.contractId
                 )

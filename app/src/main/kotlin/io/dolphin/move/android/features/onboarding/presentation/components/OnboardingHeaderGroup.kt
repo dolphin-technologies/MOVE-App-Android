@@ -3,7 +3,7 @@ package io.dolphin.move.android.features.onboarding.presentation.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,9 +43,9 @@ fun OnboardingHeaderGroup() {
             color = battleship_grey,
         )
         VerticalSpacer48()
-        Divider(
-            color = light_blue_grey,
+        HorizontalDivider(
             thickness = 1.dp,
+            color = light_blue_grey
         )
         VerticalSpacer16()
         TextBold(

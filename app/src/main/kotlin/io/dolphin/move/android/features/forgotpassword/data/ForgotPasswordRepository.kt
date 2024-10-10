@@ -41,7 +41,7 @@ class ForgotPasswordRepositoryImpl @Inject constructor(
         return withContext(ioDispatcher) {
             val request = changePasswordDto.toDropPasswordRequest()
             val rawResponse = try {
-                userApi.apiV1UsersPasswordsResetsPost(
+                userApi.apiV2UsersPasswordsResetsPost(
                     apiRequestResetPasswordRequest = request,
                 )
             } catch (e: Exception) {

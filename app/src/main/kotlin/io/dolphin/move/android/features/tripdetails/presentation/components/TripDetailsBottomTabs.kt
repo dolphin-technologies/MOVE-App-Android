@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.SecondaryIndicator
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,9 +51,9 @@ fun TripDetailsBottomTabs(
             modifier = Modifier.height(48.dp),
             selectedTabIndex = tabSate.tabItem.ordinal,
             indicator = { tabPositions ->
-                TabRowDefaults.Indicator(
+                SecondaryIndicator(
                     Modifier.tabIndicatorOffset(tabPositions[tabSate.tabItem.ordinal]),
-                    color = dusty_teal_two,
+                    color = dusty_teal_two
                 )
             }
         ) {

@@ -12,7 +12,6 @@ import io.dolphin.move.*
 import io.dolphin.move.android.BuildConfig
 import io.dolphin.move.android.R
 import io.dolphin.move.android.basedata.local.storage.UserStorage
-import io.dolphin.move.android.domain.State
 import io.dolphin.move.android.sdk.data.UpdateTokenRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -90,17 +89,11 @@ interface MoveSdkManager {
      * Transforms the MOVE SDK credentials into a MoveAuth object and after success
      * starts the setup process.
      *
-     * @param projectId
-     * @param userId
-     * @param accessToken
-     * @param refreshToken
+     * @param authCode
      * @see <a href="https://docs.movesdk.com/move-platform/backend/example-request">MOVE SDK Wiki Example-Request</a>
      */
     fun setupMoveSdk(
-        projectId: Long?,
-        userId: String?,
-        accessToken: String?,
-        refreshToken: String?
+        authCode: String?
     )
 
     /**
@@ -189,33 +182,22 @@ class MoveSdkManagerImpl @Inject constructor(
         }
     }
 
-    override fun setupMoveSdk(
-        projectId: Long?,
-        userId: String?,
-        accessToken: String?,
-        refreshToken: String?
-    ) {
-        MoveAuth(
-            projectId = projectId ?: 0L,
-            userId = userId ?: "",
-            accessToken = accessToken ?: "",
-            refreshToken = refreshToken ?: ""
-        ).also {
-            setupMoveSdk(it)
-        }
+    /**
+     *
+     * Creation of the MOVE Config and trigger the setup of the MOVE SDK.
+     *
+     * @param authCode
+     */
+    override fun setupMoveSdk(authCode: String?) {
+        // call this after registration/login only (once in a lifetime)
+        val moveConfig = createMoveConfig()
+        getMoveSdk()?.setup(authCode = authCode?: "", config = moveConfig, start = false, callback = authCallback)
     }
 
     override fun setupAndStart() {
         userStorage.getUser()?.let {
-            MoveAuth(
-                projectId = it.sdkUserLoginInfo?.productId ?: 0L,
-                userId = it.sdkUserLoginInfo?.contractId ?: "",
-                accessToken = it.sdkUserLoginInfo?.accessToken ?: "",
-                refreshToken = it.sdkUserLoginInfo?.refreshToken ?: ""
-            ).also { auth ->
-                val moveConfig = createMoveConfig()
-                getMoveSdk()?.setup(auth = auth, config = moveConfig, start = false)
-            }
+            val moveConfig = createMoveConfig()
+            getMoveSdk()?.setup(authCode = it.sdkUserAuthCode?: "", config = moveConfig, start = true, callback = authCallback)
         }
     }
 
@@ -290,9 +272,6 @@ class MoveSdkManagerImpl @Inject constructor(
             moveAuthStateFlow.value = state
 
             when (state) {
-                is MoveAuthState.EXPIRED -> {
-                    // Latest MoveAuth expired and the SDK can't refresh it.
-                }
                 is MoveAuthState.VALID -> {
                     // Authentication is valid. Latest MoveAuth provided.
                 }
@@ -303,6 +282,8 @@ class MoveSdkManagerImpl @Inject constructor(
                 is MoveAuthState.INVALID -> {
                     // Latest MoveAuth is invalid.
                 }
+
+                else -> {}
             }
         }
     }
@@ -333,23 +314,22 @@ class MoveSdkManagerImpl @Inject constructor(
         }
     }
 
+    /**
+     * Example how to implement the assistanceListener.
+     */
+/*
     private val assistanceListener = object : MoveSdk.AssistanceStateListener {
         override fun onAssistanceStateChanged(assistanceState: MoveAssistanceCallStatus) {
             assistanceStateFlow.value = assistanceState
             Timber.tag("MoveAssistanceCallStatus").d(assistanceState.name)
         }
     }
+*/
 
-    /**
-     *
-     * Creation of the MOVE Config and trigger the setup of the MOVE SDK.
-     *
-     * @param auth
-     */
-    private fun setupMoveSdk(auth: MoveAuth) {
-        // call this after registration/login only (once in a lifetime)
-        val moveConfig = createMoveConfig()
-        getMoveSdk()?.setup(auth = auth, config = moveConfig, start = false)
+    private val authCallback = object : MoveSdk.MoveAuthCallback {
+        override fun onResult(result: MoveAuthResult) {
+            Timber.i("${result.status} ${result.description}")
+        }
     }
 
     /**
@@ -422,38 +402,5 @@ class MoveSdkManagerImpl @Inject constructor(
         }
         builder.setOngoing(true)
         return builder
-    }
-
-    /**
-     *
-     * DEPRECATED
-     * If MoveAuthState is EXPIRED the authentication token must be refreshed.
-     *
-     * @see <a href="https://docs.movesdk.com/move-platform/sdk/models/moveauth">MOVE SDK Wiki MoveAuth</a>
-     * @see <a href="https://docs.movesdk.com/move-platform/sdk/models/moveauthstate">MOVE SDK Wiki MoveAuthState</a>
-     */
-    @Deprecated("Do not use manual token update, this will be handled internally by the Move SDK")
-    private fun updateAuth() {
-        launch(coroutineContext) {
-            when (val result = updateTokenRepository.requestUpdateToken()) {
-                is State.Data -> {
-                    result.data.sdkUserLoginInfo?.let {
-                        getMoveSdk()?.updateAuth(
-                            MoveAuth(
-                                projectId = it.productId ?: 0L,
-                                userId = it.contractId ?: "",
-                                accessToken = it.accessToken ?: "",
-                                refreshToken = it.refreshToken ?: "",
-                            )
-                        )
-                    }
-                }
-                is State.Error,
-                State.Loading,
-                State.None -> {
-                    // ignore for now
-                }
-            }
-        }
     }
 }

@@ -38,7 +38,7 @@ class UpdateTokenRepositoryImpl @Inject constructor(
     override suspend fun requestUpdateToken(): State<ApiRefreshSdkTokenResponseData> {
         return withContext(ioDispatcher) {
             val rawResponse = try {
-                moveUserRestApi.apiV1UsersTokensSdksGet(
+                moveUserRestApi.apiV2UsersTokensSdksGet(
                     xAppContractid = requestHelper.getContractId(),
                 )
             } catch (e: Exception) {

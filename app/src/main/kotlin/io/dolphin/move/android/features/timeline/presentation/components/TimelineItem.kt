@@ -16,8 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -90,16 +91,18 @@ fun TimelineItem(
                                 contentAlignment = Alignment.Center,
                             ) {
                                 CircularProgressIndicator(
+                                    progress = { it / 100f },
                                     modifier = Modifier
                                         .width(22.dp)
                                         .height(22.dp),
-                                    progress = it / 100f,
                                     color = score_green,
-                                    strokeWidth = 1.dp
+                                    strokeWidth = 1.dp,
+                                    trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
                                 )
                                 TextNormal(
                                     text = "$it",
-                                    fontSize = 12.sp,
+                                    fontSize = 10.sp,
+                                    modifier = Modifier.padding(top = 3.dp, end = 0.dp)
                                 )
                             }
                         }
@@ -171,9 +174,9 @@ fun TimelineItem(
                         }
                     }
                     VerticalSpacer16()
-                    Divider(
+                    HorizontalDivider(
                         thickness = 1.dp,
-                        color = white,
+                        color = white
                     )
                 }
             }
@@ -195,7 +198,7 @@ private fun TimelineItemPreview() {
                 timeAndDuration = duration,
                 tripFrom = "startAddress",
                 tripTo = "endAddress",
-                score = 49,
+                score = 99,
                 id = 0L,
             )
         ),
