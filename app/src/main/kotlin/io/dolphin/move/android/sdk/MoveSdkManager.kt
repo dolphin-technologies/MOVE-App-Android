@@ -346,17 +346,18 @@ class MoveSdkManagerImpl @Inject constructor(
         val moveServices: MutableSet<MoveDetectionService> = mutableSetOf()
 
         val drivingServices: MutableSet<DrivingService> = mutableSetOf()
-        val walkingServices: MutableSet<WalkingService> = mutableSetOf()
 
         drivingServices.add(DrivingService.DrivingBehaviour)
         drivingServices.add(DrivingService.DistractionFreeDriving)
 
-        walkingServices.add(WalkingService.Location)
+        // Walking location and Places are experimental features and not available at this moment.
+        // val walkingServices: MutableSet<WalkingService> = mutableSetOf()
+        // walkingServices.add(WalkingService.Location)
+        // moveServices.add(MoveDetectionService.Places)
 
         moveServices.add(MoveDetectionService.Driving(drivingServices = drivingServices.toList()))
-        moveServices.add(MoveDetectionService.Walking(walkingServices = walkingServices.toList()))
+        moveServices.add(MoveDetectionService.Walking(/*walkingServices = walkingServices.toList()*/))
         moveServices.add(MoveDetectionService.Cycling)
-        moveServices.add(MoveDetectionService.Places)
         moveServices.add(MoveDetectionService.PublicTransport)
         moveServices.add(MoveDetectionService.PointsOfInterest)
         moveServices.add(MoveDetectionService.AutomaticImpactDetection)
