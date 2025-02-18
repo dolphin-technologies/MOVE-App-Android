@@ -80,9 +80,18 @@ interface MoveSdkManager {
      * Flow to receive [MoveAssistanceCallStatus] changes.
      *
      * @return [StateFlow] of [MoveAssistanceCallStatus] if there is a value or null
-     * @see <a href="https://docs.movesdk.com/move-platform/sdk/api-interface/android-1/android#initiate-assistance-call">MOVE SDK Wiki Assistance Call</a>
+     * @see <a href="https://docs.movesdk.com/move-platform/sdk/api-interface/android/services#initiate-assistance-call">MOVE SDK Wiki Assistance Call</a>
      */
     fun fetchAssistanceStateFlow(): StateFlow<MoveAssistanceCallStatus?>
+
+    /**
+     *
+     * Flow to receive [MoveHealthScore] changes.
+     *
+     * @return [StateFlow] of [MoveHealthScore] if there is a value or null
+     * @see <a href="https://docs.movesdk.com/move-platform/sdk/api-interface/android/services#set-health-score-listener">MOVE SDK Wiki Health Score Listener</a>
+     */
+    fun fetchHealthScoreFlow(): StateFlow<MoveHealthScore?>
 
     /**
      *
@@ -140,6 +149,7 @@ class MoveSdkManagerImpl @Inject constructor(
     private val moveErrorsFlow = MutableStateFlow<List<MoveServiceFailure>>(emptyList())
     private val moveWarningsFlow = MutableStateFlow<List<MoveServiceWarning>>(emptyList())
     private val assistanceStateFlow = MutableStateFlow<MoveAssistanceCallStatus?>(null)
+    private val healthScoreFlow = MutableStateFlow<MoveHealthScore?>(null)
 
     init {
         Timber.i("Running MOVE SDK version ${MoveSdk.version}")
@@ -177,6 +187,7 @@ class MoveSdkManagerImpl @Inject constructor(
             initializationListener(initListener)
             setServiceWarningListener(warningListener)
             setServiceErrorListener(errorListener)
+            setMoveHealthScoreListener(healthScoreListener)
             consoleLogging(true)
             allowMockLocations(true) // mock location not recommended for use in production
         }
@@ -227,6 +238,10 @@ class MoveSdkManagerImpl @Inject constructor(
 
     override fun fetchAssistanceStateFlow(): StateFlow<MoveAssistanceCallStatus?> {
         return assistanceStateFlow
+    }
+
+    override fun fetchHealthScoreFlow(): StateFlow<MoveHealthScore?> {
+        return healthScoreFlow
     }
 
     private val initListener: MoveSdk.InitializeListener = object : MoveSdk.InitializeListener {
@@ -325,6 +340,13 @@ class MoveSdkManagerImpl @Inject constructor(
         }
     }
 */
+
+    private val healthScoreListener = object : MoveSdk.MoveHealthScoreListener {
+        override fun onMoveHealthScoreChanged(score: MoveHealthScore) {
+            healthScoreFlow.value = score
+            Timber.tag("MoveHealthScore").d("e.g. Battery at ${score.battery}%")
+        }
+    }
 
     private val authCallback = object : MoveSdk.MoveAuthCallback {
         override fun onResult(result: MoveAuthResult) {

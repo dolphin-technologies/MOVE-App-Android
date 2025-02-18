@@ -68,7 +68,7 @@ moveSdk.apply {
 
 Move SDK allows to track current states using different listeners.
 
-[SDK state listener](https://docs.movesdk.com/move-platform/sdk/models/untitled#sdk-state-listener).
+[SDK state listener](https://docs.movesdk.com/move-platform/sdk/models/listeners-callbacks#sdk-state-listener).
 Triggers whenever the `MoveSDKState` changes.
 
 ```kotlin
@@ -80,7 +80,7 @@ private val sdkStateListener: MoveSdk.StateListener = object : MoveSdk.StateList
 moveSdk.sdkStateListener(sdkStateListener)
 ```
 
-[Authentication state listener](https://docs.movesdk.com/move-platform/sdk/models/untitled#auth-state-update-listener)
+[Authentication state listener](https://docs.movesdk.com/move-platform/sdk/models/listeners-callbacks#auth-state-update-listener)
 . Triggers whenever the `MoveAuthState` changes.
 
 ```kotlin
@@ -93,7 +93,7 @@ private val authStateListener = object : MoveSdk.AuthStateUpdateListener {
 moveSdk.authStateUpdateListener(authStateListener)
 ```
 
-[Trip state listener](https://docs.movesdk.com/move-platform/sdk/models/untitled#trip-state-listener)
+[Trip state listener](https://docs.movesdk.com/move-platform/sdk/models/listeners-callbacks#trip-state-listener)
 . Triggers whenever the `MoveTripState` changes.
 
 ```kotlin
@@ -105,7 +105,7 @@ private val tripStateListener = object : MoveSdk.TripStateListener {
 moveSdk.tripStateListener(tripStateListener)
 ```
 
-[Initialization listener](https://docs.movesdk.com/move-platform/sdk/models/untitled#initialization-listener)
+[Initialization listener](https://docs.movesdk.com/move-platform/sdk/models/listeners-callbacks#initialization-listener)
 . Notifies when the configuration could not be verified with the server.
 
 ```kotlin
@@ -117,7 +117,7 @@ private val initListener: MoveSdk.InitializeListener = object : MoveSdk.Initiali
 moveSdk.initializationListener(initListener)
 ```
 
-[Service warning listener](https://docs.movesdk.com/move-platform/sdk/models/untitled#service-failure-callback)
+[Service warning listener](https://docs.movesdk.com/move-platform/sdk/models/listeners-callbacks#service-failure-callback)
 . Triggers whenever MoveServiceWarnings change.
 
 ```kotlin
@@ -130,7 +130,7 @@ private val warningListener = object : MoveSdk.MoveWarningListener {
 moveSdk.setServiceWarningListener(warningListener)
 ```
 
-[Service error listener](https://docs.movesdk.com/move-platform/sdk/models/untitled#service-warning-callback)
+[Service error listener](https://docs.movesdk.com/move-platform/sdk/models/listeners-callbacks#service-failure-callback)
 .Triggers whenever MoveServiceFailures change.
 
 ```kotlin
