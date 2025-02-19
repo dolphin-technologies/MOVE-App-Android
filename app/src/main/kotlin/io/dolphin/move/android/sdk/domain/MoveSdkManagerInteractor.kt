@@ -2,6 +2,7 @@ package io.dolphin.move.android.sdk.domain
 
 import io.dolphin.move.MoveAssistanceCallStatus
 import io.dolphin.move.MoveConfigurationError
+import io.dolphin.move.MoveHealthScore
 import io.dolphin.move.MoveSdk
 import io.dolphin.move.MoveSdkState
 import io.dolphin.move.MoveServiceFailure
@@ -41,6 +42,10 @@ class MoveSdkManagerInteractor @Inject constructor(
 
     fun fetchAssistanceStateFlow(): StateFlow<MoveAssistanceCallStatus?> {
         return moveSdkManager.fetchAssistanceStateFlow()
+    }
+
+    fun fetchHealthScoreFlow(): StateFlow<MoveHealthScore?> {
+        return moveSdkManager.fetchHealthScoreFlow()
     }
 
     fun setupAndStart() {

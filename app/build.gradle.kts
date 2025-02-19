@@ -20,7 +20,7 @@ android {
         minSdk = 26
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0.5.$versionCode"
+        versionName = "1.0.6.$versionCode"
 
         testInstrumentationRunner = "io.dolphin.move.android.HiltTestRunner"
         vectorDrawables {
