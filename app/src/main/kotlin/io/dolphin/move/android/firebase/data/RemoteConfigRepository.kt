@@ -1,8 +1,8 @@
 package io.dolphin.move.android.firebase.data
 
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.remoteconfig.ktx.remoteConfig
-import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.google.firebase.Firebase
+import com.google.firebase.remoteconfig.remoteConfig
+import com.google.firebase.remoteconfig.remoteConfigSettings
 import io.dolphin.move.android.BuildConfig
 import io.dolphin.move.android.R
 import timber.log.Timber

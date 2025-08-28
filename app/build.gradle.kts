@@ -9,16 +9,17 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.secrets.gradle.plugin)
     alias(libs.plugins.crashlytics.gradle.plugin)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "io.dolphin.move.android"
-    compileSdk = 34
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "io.dolphin.move.android"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0.6.$versionCode"
 

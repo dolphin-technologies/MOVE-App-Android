@@ -385,6 +385,9 @@ class MoveSdkManagerImpl @Inject constructor(
         moveServices.add(MoveDetectionService.AutomaticImpactDetection)
         moveServices.add(MoveDetectionService.AssistanceCall)
 
+        // Health is experimental feature and not available at this moment.
+        // moveServices.add(MoveDetectionService.Health)
+
         return MoveConfig(
             moveDetectionServices = moveServices.toList(),
         )
